@@ -7,4 +7,4 @@ Coming soon:
 -Liquid Chess (you have a fixed amount of liquid at the start of the game, it moves towards your cursor, and it can overwrite your opponent's liquid.)
 -Smoother look
 -Better AI
--Better language and better code (the pixels begin drawn to the screen and the game board are the same array, not smart lol)
+-Better language and better code (the pixels being drawn to the screen and the game board are the same array, not smart lol)
