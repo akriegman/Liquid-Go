@@ -15,8 +15,8 @@ class SortDSquared implements Comparator<Integer>
   
   public int dsquared (int p1, int p2)
   {
-    return (int) Math.pow((int)(p1/width) - (int)(p2/width), 2)
-    + (int) Math.pow(p1 % width - p2 % width, 2);
+    return (int) Math.pow((int)(p1/gameWidth) - (int)(p2/gameWidth), 2)
+    + (int) Math.pow(p1 % gameWidth - p2 % gameWidth, 2);
   }
   
   int origin;

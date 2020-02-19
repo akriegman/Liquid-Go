@@ -11,9 +11,9 @@ public class PlayerGo
   public int spill (int x, int y, int grams)
   {
     int count = 0;
-    int here = y * width + x;
+    int here = y * gameWidth + x;
     
-    if (pixels[here] == board)
+    if (gameState[here] == board)
     {
       assimilate(here);
       count++;
@@ -28,7 +28,7 @@ public class PlayerGo
         target = Collections.min(boundary, sorty);
       } catch (NoSuchElementException e) {return 0;}
       
-      if (pixels[target] == board) {
+      if (gameState[target] == board) {
         assimilate(target);
         count++;
       } else {
@@ -38,27 +38,19 @@ public class PlayerGo
     return 1;
   }
   
-  public void assimilate (int p) {
-    int x = p % width;
-    int y = (int) p / width;
+  public void assimilate (int p)
+  {
+    int x = p % gameWidth;
+    int y = (int) p / gameWidth;
     
-    pixels[p] = flag;
+    gameState[p] = flag;
     
-    if (x != 0 && pixels[p-1] == board) {boundary.add(p-1);}
-    if (x != width - 1 && pixels[p+1] == board) {boundary.add(p+1);}
-    if (y != 0 && pixels[p-width] == board) {boundary.add(p-width);}
-    if (y != height - 1 && pixels[p+width] == board) {boundary.add(p+width);}
+    if (x != 0 && gameState[p-1] == board) {boundary.add(p-1);}
+    if (x != gameWidth - 1 && gameState[p+1] == board) {boundary.add(p+1);}
+    if (y != 0 && gameState[p-gameWidth] == board) {boundary.add(p-gameWidth);}
+    if (y != gameHeight - 1 && gameState[p+gameWidth] == board) {boundary.add(p+gameWidth);}
     boundary.remove(new Integer(p));
   }  
-  
-  //public int topologyCheck () {
-  //  Set<Integer> buffer = new HashSet();
-  //  buffer.addAll(boundary);
-  //  while (buffer.size() > 0) {
-  //    ArrayList<Integer> loop = new ArrayList();
-  //  }
-    
-  //}
   
   public Set<Integer> boundary = new HashSet();
   public color flag;
