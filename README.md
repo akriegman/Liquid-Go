@@ -1,5 +1,4 @@
 # Liquid-Go
-
 A suprisingly fun and beautiful game I made in Processing. 
 
 ![alt text](https://github.com/akriegman/Liquid-Go/blob/master/Photos/Screen%20Shot%202019-08-05%20at%2010.34.20%20PM.png?raw=true "Logo Title Text 1")
