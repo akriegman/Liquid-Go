@@ -1,11 +1,11 @@
 import java.util.*;
-
-int midpic = 0;
+import java.time.LocalDateTime;
+import java.nio.file.Paths;
 
 PlayerGo player1;
 PlayerGo player2;
 color board = color(180, 140, 30);
-int growRate = 100;
+int growRate = 30;
 float computerX;
 float computerY;
 float computerXnext;
@@ -15,11 +15,12 @@ float playerY;
 float playerXnext;
 float playerYnext;
 float speed = 0.2;
+boolean pause = false;
 
 void setup ()
 {
   background(board);
-  size(960, 720);
+  size(720, 720);
   loadPixels();
   
   player1 = new PlayerGo(color(255, 255, 224));
@@ -34,6 +35,16 @@ void setup ()
 
 void draw ()
 { 
+  if (millis() < 2000 || pause) { return; }
+  
+  // Player coordinates should be 0 <= x < width, similar for y.
+  // Since we round down to get the cell coordinates,
+  // and the player coordinates are only approaching the mouse
+  // coordinates, it's okay to clamp mouseX above by width
+  // instead of width - 1.
+  mouseX = Math.max(0, Math.min(width, mouseX));
+  mouseY = Math.max(0, Math.min(height, mouseY));
+  
   computerXnext = computerX + (mouseX - computerX) * speed/2;
   computerYnext = computerY + (mouseY - computerY) * speed/2;
   playerXnext = playerX + (mouseX - playerX) * speed;
@@ -72,16 +83,21 @@ void draw ()
     }
     println("White Territory: " + (w + u));
     println("Black Territory: " + b);
-    //save("image" + (int)random(10000) + ".png");
+    screenshot();
   }
-  
-  //if (millis() > 10000 && midpic == 0) {
-  //  save("image" + (int)random(10000) + ".png");
-  //  midpic = 1;
-  //}
 }
 
-void mouseClicked ()
+void keyPressed ()
 {
-  save("screenshots/image" + (int)random(10000) + ".png");
+  switch (key) {
+    case 's': screenshot();   break;
+    case 'p': pause = !pause; break;
+    case 'j': growRate -= 10; break;
+    case 'k': growRate += 10; break;
+  }
+}
+
+void screenshot()
+{
+  save("screenshots/image_" + LocalDateTime.now().toString().replace(':', '-') + ".png");
 }

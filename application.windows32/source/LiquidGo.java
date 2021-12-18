@@ -4,6 +4,8 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import java.util.*; 
+import java.time.LocalDateTime; 
+import java.nio.file.Paths; 
 import java.util.*; 
 import java.util.*; 
 
@@ -20,12 +22,12 @@ public class LiquidGo extends PApplet {
 
 
 
-int midpic = 0;
+
 
 PlayerGo player1;
 PlayerGo player2;
 int board = color(180, 140, 30);
-int growRate = 100;
+int growRate = 30;
 float computerX;
 float computerY;
 float computerXnext;
@@ -35,6 +37,7 @@ float playerY;
 float playerXnext;
 float playerYnext;
 float speed = 0.2f;
+boolean pause = false;
 
 public void setup ()
 {
@@ -54,6 +57,16 @@ public void setup ()
 
 public void draw ()
 { 
+  if (millis() < 2000 || pause) { return; }
+  
+  // Player coordinates should be 0 <= x < width, similar for y.
+  // Since we round down to get the cell coordinates,
+  // and the player coordinates are only approaching the mouse
+  // coordinates, it's okay to clamp mouseX above by width
+  // instead of width - 1.
+  mouseX = Math.max(0, Math.min(width, mouseX));
+  mouseY = Math.max(0, Math.min(height, mouseY));
+  
   computerXnext = computerX + (mouseX - computerX) * speed/2;
   computerYnext = computerY + (mouseY - computerY) * speed/2;
   playerXnext = playerX + (mouseX - playerX) * speed;
@@ -92,18 +105,23 @@ public void draw ()
     }
     println("White Territory: " + (w + u));
     println("Black Territory: " + b);
-    //save("image" + (int)random(10000) + ".png");
+    screenshot();
   }
-  
-  //if (millis() > 10000 && midpic == 0) {
-  //  save("image" + (int)random(10000) + ".png");
-  //  midpic = 1;
-  //}
 }
 
-public void mouseClicked ()
+public void keyPressed ()
 {
-  save("screenshots/image" + (int)random(10000) + ".png");
+  switch (key) {
+    case 's': screenshot();   break;
+    case 'p': pause = !pause; break;
+    case 'j': growRate -= 10; break;
+    case 'k': growRate += 10; break;
+  }
+}
+
+public void screenshot()
+{
+  save("screenshots/image_" + LocalDateTime.now().toString().replace(':', '-') + ".png");
 }
 
 
@@ -145,7 +163,8 @@ public class PlayerGo
     return 1;
   }
   
-  public void assimilate (int p) {
+  public void assimilate (int p)
+  {
     int x = p % width;
     int y = (int) p / width;
     
@@ -157,15 +176,6 @@ public class PlayerGo
     if (y != height - 1 && pixels[p+width] == board) {boundary.add(p+width);}
     boundary.remove(new Integer(p));
   }  
-  
-  //public int topologyCheck () {
-  //  Set<Integer> buffer = new HashSet();
-  //  buffer.addAll(boundary);
-  //  while (buffer.size() > 0) {
-  //    ArrayList<Integer> loop = new ArrayList();
-  //  }
-    
-  //}
   
   public Set<Integer> boundary = new HashSet();
   //public PriorityQueue<Integer> boundary = new PriorityQueue();
@@ -195,7 +205,7 @@ class SortDSquared implements Comparator<Integer>
   int origin;
   
 }
-  public void settings() {  size(960, 720); }
+  public void settings() {  size(720, 720); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "LiquidGo" };
     if (passedArgs != null) {

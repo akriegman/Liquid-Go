@@ -38,7 +38,8 @@ public class PlayerGo
     return 1;
   }
   
-  public void assimilate (int p) {
+  public void assimilate (int p)
+  {
     int x = p % width;
     int y = (int) p / width;
     
@@ -50,15 +51,6 @@ public class PlayerGo
     if (y != height - 1 && pixels[p+width] == board) {boundary.add(p+width);}
     boundary.remove(new Integer(p));
   }  
-  
-  //public int topologyCheck () {
-  //  Set<Integer> buffer = new HashSet();
-  //  buffer.addAll(boundary);
-  //  while (buffer.size() > 0) {
-  //    ArrayList<Integer> loop = new ArrayList();
-  //  }
-    
-  //}
   
   public Set<Integer> boundary = new HashSet();
   //public PriorityQueue<Integer> boundary = new PriorityQueue();
