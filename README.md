@@ -1,9 +1,9 @@
 # Liquid-Go
-A surprisingly fun and beautiful game I made in Processing. 
+A surprisingly fun and beautiful game I made in Processing. I've since remade this for the web, check it out at [liquidgo.xyz](https://liquidgo.xyz).
 
 ![alt text](https://github.com/akriegman/Liquid-Go/blob/master/Photos/Screen%20Shot%202019-08-05%20at%2010.34.20%20PM.png?raw=true "Logo Title Text 1")
 
-Go is a Chinese board game about controlling teritory. It is turn based and played on a grid. This is go except played with "liquid" in real time, instead of discreet stones placed in discreet steps. You and your opponent both pour liquid at the same rate, and your goal is to surround your opponent. Much like in go, you can pour liquid on any empty spot on the board, you cannot pour liquid where there is already liquid, the liquid stays where it was poured, and you want to take away liberties of your opponent's liquid. Replace "pour" with "place" and "liquid" with "stones" and you have most of the rules of Go.
+Go is an East-Asian board game about controlling teritory. It is turn based and played on a grid. This is go except played with "liquid" in real time, instead of discreet stones placed in discreet steps. You and your opponent both pour liquid at the same rate, and your goal is to surround your opponent. Much like in go, you can pour liquid on any empty spot on the board, you cannot pour liquid where there is already liquid, the liquid stays where it was poured, and you want to take away liberties of your opponent's liquid. Replace "pour" with "place" and "liquid" with "stones" and you have most of the rules of Go.
 
 The `application` folders contain compiled versions of the game that you can download and play. You play as white and you can control where you pour by moving the mouse. Try to surround black and control more territory. Click to take a screenshot.
 
